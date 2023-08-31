@@ -7,8 +7,6 @@ import os
 from dotenv import load_dotenv
 import requests
 import json
-from colorama import Fore as FORE
-
 
 phone_numbers = ["15202330667"]
 
