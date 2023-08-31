@@ -1,6 +1,12 @@
 
 import smtplib
 import sys
+import os
+from dotenv import load_dotenv
+
+load_dotenv() #loads .env file contents
+email = os.getenv("EMAIL")
+email_password = os.getenv("EMAILPASS")
  
 CARRIERS = {
     "att": "@mms.att.net",
@@ -10,12 +16,9 @@ CARRIERS = {
     "cricket": "@mms.cricketwireless.net"
 }
  
-EMAIL = "EMAIL"
-PASSWORD = "PASSWORD"
- 
 def send_message(phone_number, carrier, message):
     recipient = phone_number + CARRIERS[carrier]
-    auth = (EMAIL, PASSWORD)
+    auth = (email, email_password)
  
     server = smtplib.SMTP("smtp.gmail.com", 587)
     server.starttls()

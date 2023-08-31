@@ -5,11 +5,16 @@ Then it will notify users of the weather.
 
 """
 
+import sms
 import os
 from dotenv import load_dotenv
 import requests
 import json
 from colorama import Fore as FORE
+
+
+phone_numbers = ("15202330667")
+
 
 load_dotenv() #loads .env file contents
 api_key = os.getenv("API_KEY")
@@ -37,3 +42,7 @@ print('* Current Temp: ' + str(temp) + ' °F')
 print('* Feels like: ' + str(feels_like) + ' °F')
 
 
+text_message = f'*** WEATHER APP ANNOUNCEMENT ***\nCurrent Temp: {str(temp)} °F\nFeels like: {str(feels_like)} °F'
+
+for number in phone_numbers:
+    sms.send_message(number, 'cricket', text_message)
