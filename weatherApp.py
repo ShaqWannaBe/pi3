@@ -1,9 +1,6 @@
-"""
 
-This app will query a weather API to find data about the weather.
-Then it will notify users of the weather.
-
-"""
+# This app will query a weather API to find data about the weather.
+# Then it will notify users of the weather.
 
 import sms
 import os
@@ -13,7 +10,7 @@ import json
 from colorama import Fore as FORE
 
 
-phone_numbers = ("15202330667")
+phone_numbers = ["15202330667"]
 
 
 load_dotenv() #loads .env file contents
@@ -35,6 +32,7 @@ data = res.json()
 temp = int(round(data['current']['temp'],0))
 feels_like = (int(round(data['current']['feels_like'])))
 condition = data['current']['weather']
+# high_temp = int(round(data['daily']['temp']['max']))
 
 #print welcome
 print('\n*** WELCOME TO THE WEATHER APP ***')
@@ -42,7 +40,8 @@ print('* Current Temp: ' + str(temp) + ' °F')
 print('* Feels like: ' + str(feels_like) + ' °F')
 
 
-text_message = f'*** WEATHER APP ANNOUNCEMENT ***\nCurrent Temp: {str(temp)} °F\nFeels like: {str(feels_like)} °F'
+text_message = f'*** WEATHER APP ANNOUNCEMENT ***\nCurrent Temp - {str(temp)} F\nFeels like - {str(feels_like)} F'
+#text_message = f'Current temp - {str(temp)}'
 
 for number in phone_numbers:
     sms.send_message(number, 'cricket', text_message)
