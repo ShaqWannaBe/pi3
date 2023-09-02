@@ -14,5 +14,28 @@ url = f'https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&unit
 res = requests.get(url)
 data = res.json()
 
-high_temp = data['daily']['temp']['max']
-print(str(high_temp))
+current = data['current']
+daily = data['daily']
+today = daily[0]
+
+# current weather conditions
+temp = int(round(current['temp'],0))
+feels_like = (int(round(current['feels_like'])))
+condition = current['weather'][0]['description']
+
+# weather conditions for today
+today_summary = today['summary']
+today_high_temp = int(round(today['temp']['max']))
+today_low_temp = int(round(today['temp']['min']))
+
+#print welcome
+print('\n*** WELCOME TO THE WEATHER APP ***')
+print('* Current weather:')
+print('Temp: ' + str(temp) + ' °F')
+print('Feels like: ' + str(feels_like) + ' °F')
+print('Condition: ' + str(condition))
+print("\n* Today's forecast:")
+print(str(today_summary))
+print(f'High temp: {str(today_high_temp)}')
+print(f'Low temp: {str(today_low_temp)}')
+

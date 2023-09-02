@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 import requests
 import json
 
+# define the phone numbers you'd like to text
 phone_numbers = ["15202330667"]
 
 
@@ -24,22 +25,30 @@ res = requests.get(url)
 data = res.json()
 
 #prints the result of the api call
-# print(f'{FORE.RED}{res}{FORE.RESET}')
+# print(res)
 
-#round the current temp and turn it into an integer
-temp = int(round(data['current']['temp'],0))
-feels_like = (int(round(data['current']['feels_like'])))
-condition = data['current']['weather']
-# high_temp = int(round(data['daily']['temp']['max']))
+# define the current and daily weather
+current = data['current']
+daily = data['daily']
+today = daily[0]
 
-#print welcome
-print('\n*** WELCOME TO THE WEATHER APP ***')
-print('* Current Temp: ' + str(temp) + ' °F')
-print('* Feels like: ' + str(feels_like) + ' °F')
+# current weather data
+temp = int(round(current['temp'],0))
+feels_like = (int(round(current['feels_like'])))
+condition = current['weather']
+
+# today's weather data
+today_summary = today['summary']
+today_high_temp = int(round(today['temp']['max']))
+today_low_temp = int(round(today['temp']['min']))
 
 
-text_message = f'*** WEATHER APP ANNOUNCEMENT ***\nCurrent Temp - {str(temp)} F\nFeels like - {str(feels_like)} F'
+#text_message = f'*** WEATHER APP ANNOUNCEMENT ***\nCurrent Temp - {str(temp)} F\nFeels like - {str(feels_like)} F'
+text_message = (f"Good morning! {today_summary}. "
+                f"The high will be {str(today_high_temp)} degrees and the "
+                f"low will be {str(today_low_temp)}. Have an awesome day.")
 #text_message = f'Current temp - {str(temp)}'
 
+# sends the message to every number listed above
 for number in phone_numbers:
     sms.send_message(number, 'cricket', text_message)
